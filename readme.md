@@ -1,4 +1,4 @@
-# FaceTwin AI 🎭
+# CelebMatch AI 🎭
 
 **Find the bollywood celebrity you look most like using FaceNet embeddings and deep metric learning.**
 
