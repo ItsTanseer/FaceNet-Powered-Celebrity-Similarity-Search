@@ -9,18 +9,29 @@ import torchvision.transforms as transforms
 from sklearn.metrics.pairwise import cosine_similarity
 import time
 
-device=torch.device("cuda" if torch.cuda.is_available() else "cpu")
-model = InceptionResnetV1(pretrained='vggface2').eval().to(device)
-mtcnn = MTCNN(image_size=160)
 
+
+@st.cache_resource
+def load_models():
+  device=torch.device("cuda" if torch.cuda.is_available() else "cpu")
+  model = InceptionResnetV1(pretrained='vggface2').eval().to(device)
+  mtcnn = MTCNN(image_size=160)
+  return model, mtcnn, device
+model, mtcnn, device=load_models()
 st.title("Which bollywood celebrity do you look like?")
 
 userImg = st.file_uploader("Upload your image", type=["jpg", "jpeg", "png"])
 st.write("Note: The image should contain one face, better results if it is cropped to the face.")
-def feature_extractor(model):
+
+@st.cache_data
+def load_embeddings():
+  with open('actor_embeddings.pkl', 'rb') as f:
+    actor_embeddings = pickle.load(f)
+    return actor_embeddings
+actor_embeddings = load_embeddings() 
+
+def feature_extractor(model, userImg):
   img = Image.open(userImg).convert('RGB')
-  transform=transforms.ToTensor()
-  device=torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
   faces = mtcnn (img)
   if faces is None:
@@ -32,16 +43,15 @@ def feature_extractor(model):
     embedding = model(faces)
   return embedding.squeeze(0).cpu().numpy()
 prediction=st.text("")
-Scores=[]
+
 
 if userImg is not None:
    st.image(userImg, width=400)
    if st.button("Predict"):
       with st.spinner("Analyzing your face"):
-         embeddings = feature_extractor(model)
+         embeddings = feature_extractor(model, userImg)
          time.sleep(1)
-         with open('actor_embeddings.pkl', 'rb') as f:
-            actor_embeddings = pickle.load(f)
+         
          scores=[]
 
          for actor, actor_emb in actor_embeddings.items():
@@ -52,7 +62,7 @@ if userImg is not None:
          st.write("Your face looks like- ")
          for i in range(3):
             
-          st.write(f"{top_scores[i][0]}-  {(top_scores[i][1]*100):.2f}% ")
+            st.write(f"{top_scores[i][0]}-  {(top_scores[i][1]*100):.2f}% ")
       
 
 
