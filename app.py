@@ -16,7 +16,7 @@ mtcnn = MTCNN(image_size=160)
 st.title("Which bollywood celebrity do you look like?")
 
 userImg = st.file_uploader("Upload your image", type=["jpg", "jpeg", "png"])
-
+st.write("Note: The image should contain one face, better results if it is cropped to the face.")
 def feature_extractor(model):
   img = Image.open(userImg).convert('RGB')
   transform=transforms.ToTensor()
@@ -52,7 +52,7 @@ if userImg is not None:
          st.write("Your face looks like- ")
          for i in range(3):
             
-          st.write(f"{top_scores[i][0]}-  {round(top_scores[i][1]*100, 2)}% ")
+          st.write(f"{top_scores[i][0]}-  {(top_scores[i][1]*100):.2f}% ")
       
 
 
