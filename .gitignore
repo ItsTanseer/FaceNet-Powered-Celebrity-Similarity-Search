@@ -1,0 +1,8 @@
+venv310/
+Datasets/
+Datasets.zip
+filenames.pkl
+
+__pycache__/
+*.pyc
+.DS_Store
