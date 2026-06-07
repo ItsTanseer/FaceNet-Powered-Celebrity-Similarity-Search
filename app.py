@@ -4,7 +4,6 @@ import pandas as pd
 import numpy as np
 from facenet_pytorch import MTCNN, InceptionResnetV1
 from PIL import Image
-import matplotlib.pyplot as plt
 import torch
 import torchvision.transforms as transforms
 from sklearn.metrics.pairwise import cosine_similarity
