@@ -132,12 +132,14 @@ dataset/
 │
 └── ...
 ```
+Link- [kaggle dataset](https://www.kaggle.com/datasets/sushilyadav1998/bollywood-celeb-localized-face-dataset)
+
 
 Each celebrity folder contains multiple facial images used to generate robust facial embeddings.
 
 ---
 
-## ⚙️ Installation
+##  Installation
 
 Clone the repository:
 
@@ -175,7 +177,7 @@ pip install -r requirements.txt
 
 ---
 
-## ▶️ Run the Application
+##  Run the Application
 
 ```bash
 streamlit run app.py
@@ -183,7 +185,7 @@ streamlit run app.py
 
 ---
 
-## 📈 Future Improvements
+##  Future Improvements
 
 * FAISS-based similarity search
 * Support for multiple faces in a single image
@@ -195,7 +197,7 @@ streamlit run app.py
 
 ---
 
-## 🎯 Applications
+##  Applications
 
 * Entertainment and social media
 * Face similarity search
@@ -205,7 +207,7 @@ streamlit run app.py
 
 ---
 
-## 📚 Concepts Used
+##  Concepts Used
 
 * Deep Metric Learning
 * Face Recognition
@@ -217,7 +219,7 @@ streamlit run app.py
 
 ---
 
-## 👨‍💻 Author
+##  Author
 
 Developed using:
 
